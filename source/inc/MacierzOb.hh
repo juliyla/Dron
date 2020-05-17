@@ -9,11 +9,9 @@
 #define PI 3.14159265
 
 class MacierzOb: public Macierz<double,3> {
-protected:
-double kat;
 public:
-MacierzOb(): kat(0),{InicjujMacierzOb();}
-
+MacierzOb();
+MacierzOb(double kat);
 };
 
 void InicjujMacierzOb();

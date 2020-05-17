@@ -1,5 +1,5 @@
-#include "Macierz.hh"
-#include "LZespolona.hh"
+#include "../inc/Macierz.hh"
+#include "../inc/LZespolona.hh"
 using namespace std;
 
 /*Konstruktory*/

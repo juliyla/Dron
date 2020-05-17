@@ -1,6 +1,6 @@
-#include "LZespolona.hh"
+#include "../inc/LZespolona.hh"
 #include <cmath>
-#include "rozmiar.h"
+#include "../inc/rozmiar.h"
 
 using namespace std;
 

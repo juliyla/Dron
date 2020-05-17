@@ -2,13 +2,13 @@ CPPFLAGS= -c -g -Wall -pedantic -std=c++17
 
 __start__: Dron
 	./Dron
-Dron: 	obj/Dr3D_gnuplot_api.o obj/main.o obj/UkladRownanLiniowych.o obj/Macierz.o obj/Wektor.o obj/LZespolona.o obj/MacierzOb.o obj/Bryla.o obj/Prostopadloscian.o obj/Dron.o obj/InterfejsDrona.o
+Dron: 	obj/Dr3D_gnuplot_api.o obj/main.o obj/Macierz.o obj/Wektor.o obj/LZespolona.o obj/MacierzOb.o obj/Bryla.o obj/Prostopadloscian.o obj/Dron.o obj/InterfejsDrona.o
 	g++ -o Dron obj/main.o obj/Dr3D_gnuplot_api.o -lpthread\
-						obj/Wektor.o obj/Macierz.o obj/UkladRownanLiniowych.o\
+						obj/Wektor.o obj/Macierz.o\
 						obj/LZespolona.o \
 						obj/MacierzOb.o obj/Bryla.o obj/Prostopadloscian.o obj/Dron.o obj/InterfejsDrona.o
 
-obj/main.o: src/main.cpp 	inc/Dr3D_gnuplot_api.hh inc/UkladRownanLiniowych.hh inc/Macierz.hh inc/Wektor.hh\
+obj/main.o: src/main.cpp 	inc/Dr3D_gnuplot_api.hh inc/Macierz.hh inc/Wektor.hh\
         					inc/rozmiar.h inc/LZespolona.hh\
 							inc/MacierzOb.hh inc/Bryla.hh inc/Prostopadloscian.hh inc/Dron.hh inc/InterfejsDrona.hh
 	g++ ${CPPFLAGS} -o  obj/main.o src/main.cpp
@@ -21,9 +21,6 @@ inc/Dr3D_gnuplot_api.hh: inc/Draw3D_api_interface.hh
 
 obj/LZespolona.o: src/LZespolona.cpp inc/LZespolona.hh
 	g++ ${CPPFLAGS} -o obj/LZespolona.o src/LZespolona.cpp
-
-obj/UkladRownanLiniowych.o: src/UkladRownanLiniowych.cpp inc/UkladRownanLiniowych.hh
-	g++ ${CPPFLAGS} -o obj/UkladRownanLiniowych.o src/UkladRownanLiniowych.cpp
 
 obj/Macierz.o: src/Macierz.cpp inc/Macierz.hh 
 	g++ ${CPPFLAGS} -o obj/Macierz.o src/Macierz.cpp

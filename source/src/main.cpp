@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Dr3D_gnuplot_api.hh"
-#include "Wektor.hh"
-#include "MacierzOb.hh"
-#include "Macierz.hh"
-#include "Prostopadloscian.hh"
-#include "Dron.hh
+#include "../inc/Dr3D_gnuplot_api.hh"
+#include "../inc/Wektor.hh"
+#include "../inc/MacierzOb.hh"
+#include "../inc/Macierz.hh"
+#include "../inc/Prostopadloscian.hh"
+#include "../inc/Dron.hh
 
 using std::vector;
 using drawNS::Point3D;

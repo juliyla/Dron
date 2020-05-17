@@ -1,5 +1,5 @@
-#include "Wektor.hh"
-#include "rozmiar.h"
+#include "../inc/Wektor.hh"
+#include "../inc/rozmiar.h"
 #include <iostream>
 #include <cmath>
 #include <algorithm>

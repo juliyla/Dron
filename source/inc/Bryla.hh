@@ -1,17 +1,14 @@
 #ifndef BRYLA_HH
 #define BRYLA_HH
-#include "MacierzOb.hh"
-#include "Dr3D_gnuplot_api.hh"
+#include "../inc/MacierzOb.hh"
+#include "../inc/Dr3D_gnuplot_api.hh"
+#include "../inc/ObiektRysowalny.hh"
 
-class Bryla
-{
+class Bryla : public ObiektRysowalny { 
 protected:
-  MacierzOb MOrientacja;
   Wektor<double,3> WSrodek; 
 public:
- Bryla(): WSrodek{0,0,0} {}
- virtual int Narysuj(std::shared_ptr<drawNS::Draw3DAPI> api)=0;
-
+ Bryla(): WSrodek(0,0,0);
 };
 
 

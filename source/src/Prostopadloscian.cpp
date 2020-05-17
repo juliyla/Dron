@@ -1,11 +1,9 @@
-#include "Prostopadloscian.hh"
+#include "../inc/Prostopadloscian.hh"
 
 using std::vector;
 using drawNS::Point3D;
 using drawNS::APIGnuPlot3D;
 using std::vector;
-
-Prostopadloscian::Prostopadloscian() {}
 
 void Prostopadloscian::Wspolrzedne() {
   WWspolrzedne[0] = WSrodek;
@@ -19,6 +17,7 @@ void Prostopadloscian::Wspolrzedne() {
 }
 
 int Narysuj(std::shared_ptr<drawNS::Draw3DAPI> & api){
+ Wspolrzedne();
  int tmp=api->draw_polyhedron(vector<vector<Point3D>>{{
             drawNS::Point3D(WWspolrzedne[0][0],WWspolrzedne[0][1],WWspolrzedne[0][2]),
             drawNS::Point3D(WWspolrzedne[1][0],WWspolrzedne[1][1],WWspolrzedne[1][2]),
