@@ -5,10 +5,11 @@
 class ObiektRysowalny {
 protected:
     int index;
-    std::shared_ptr<drawNS::Draw3DAPI> api;
+    std::shared_ptr<drawNS::Draw3DAPI> Obiekt;
 public:
+   ObiektRysowalny(drawNS::Draw3DAPI* Obiekt) : Obiekt(Obiekt) {}
   virtual int Narysuj(std::shared_ptr<drawNS::Draw3DAPI> api) = 0;
-  void Zmaz(){api->erase_shape(index);}
+  void Zmaz(int index){Obiekt->erase_shape(index);}
 };
 
 #endif

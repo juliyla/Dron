@@ -1,19 +1,22 @@
 #include "../inc/Dron.hh"
 
-void Prostopadloscian::Obrot(double kat){
-    for(unsigned int index=0; index < 8; ++index)
-    {
-        WWspolrzedne[index]=MacierzOb(kat)*(WWspolrzedne[index]-WSrodek)+WSrodek;
-    }
+void Dron::Obrot(double kat){
+   MOrientacja = MOrientacja * MacierzOb(kat);
+   sruba1.ObrotSr(MOrientacja);
+   sruba2.ObrotSr(MOrientacja);
 }
 
-void Prostopadloscian::Przesuniecie(double odleglosc){
-  Wektor<double,3> W(0,odleglosc,0);
+void Dron::Przesuniecie(double odleglosc, double kat){
+  Wektor<double,3> W(odleglosc,0,0);
 
-    for(unsigned int index=0; index < 8; ++index)
-    {
-        WWspolrzedne[index]= WWspolrzedne[index] + W;
-    }
-    WSrodek= WSrodek + W;
+  WSrodek = WSrodek + MOrientacja * MacierzOb(kat, 'Y') * W;
+
+  sruba1.PrzesuniecieSr(WSrodek);
+  sruba2.PrzesuniecieSr(WSrodek);
 }
 
+void Dron:: Narysuj(std::shared_ptr<drawNS::Draw3DAPI>& api) {
+	Prostopadloscian::Narysuj(api);
+	sruba1.Narysuj(api);
+	sruba2.Narysuj(api);
+}

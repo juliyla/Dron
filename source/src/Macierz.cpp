@@ -1,5 +1,4 @@
 #include "../inc/Macierz.hh"
-#include "../inc/LZespolona.hh"
 using namespace std;
 
 /*Konstruktory*/
@@ -82,7 +81,7 @@ Macierz<Typ, Rozmiar> Macierz<Typ, Rozmiar>::zmien_kolumne(int kolum, Wektor<Typ
 }
 
 template<typename Typ, int Rozmiar>
- Typ Macierz<Typ, Rozmiar>::wyznacznik() const
+ Typ Macierz<Typ, Rozmiar>::wyznacznik() 
 {
   Typ wyznacznik;
   for (int i = 0; i < Rozmiar; ++i) {      
@@ -156,10 +155,6 @@ ostream & operator << (ostream &strm, const Macierz<Typ, Rozmiar> &M) {
   return strm;
 }
 
-template class Macierz<double, 5>;
-template istream& operator >> (istream &strm, Macierz<double, 5> &M);
-template ostream& operator << (ostream &strm, const Macierz<double, 5> &M);
-
-template class Macierz<LZespolona, 5>;
-template istream& operator >> (istream &strm, Macierz<LZespolona, 5> &M);
-template ostream& operator << (ostream &strm, const Macierz<LZespolona, 5> &M);
+template class Macierz<double, 3>;
+template istream& operator >> (istream &strm, Macierz<double, 3> &M);
+template ostream& operator << (ostream &strm, const Macierz<double, 3> &M);

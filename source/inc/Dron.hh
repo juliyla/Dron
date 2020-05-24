@@ -12,11 +12,10 @@ Sruba sruba1;
 Sruba sruba2; 
 
 public:
-    Dron(): Prostopadloscian() {}
-void InicjujSruby();
-void InicjujDrona();
-void Obrot(double kat)override;
-void Przesuniecie(double odleglosc)override;
+    Dron(Wektor<double, 3>* tabP, Wektor<double, 3>* tabS, Wektor<double, 3> WSrodek, MacierzOb& MOrientacja,drawNS::APIGnuPlot3D* Obiekt) : Prostopadloscian(tabP, WSrodek, MOrientacja,Obiekt), sruba1(Obiekt, tabS, WSrodek, MOrientacja), sruba2(Obiekt, tabS, WSrodek, MOrientacja) {};
+void Obrot(double kat);
+void Przesuniecie(double odleglosc, double kat);
+int Narysuj(std::shared_ptr<drawNS::Draw3DAPI>& api);
 };
 
 #endif

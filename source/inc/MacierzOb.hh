@@ -12,8 +12,10 @@ class MacierzOb: public Macierz<double,3> {
 public:
 MacierzOb();
 MacierzOb(double kat);
+MacierzOb(double kat, char os);
+MacierzOb(const Macierz<double, 3>& M);
 };
 
-void InicjujMacierzOb();
+
 
 #endif

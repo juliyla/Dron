@@ -5,19 +5,12 @@
 #include "Wektor.hh"
 #include "MacierzOb.hh"
 
-using namespace std;
 class Graniastoslup : public Bryla {
 protected:
- MacierzOb MOrientacja;
- double podstawa;
- double wysokosc;
- Wektor <double,3> WWierzcholki[12];
+	Wektor<double, 3> WWierzcholki[12];
 public:
-  void Wierzcholki();
-  int Narysuj(std::shared_ptr<drawNS::Draw3DAPI> api)override;
-  void ObrotG(double kat);
-  void PrzesuniecieG(double odleglosc);
-  
+	Graniastoslup(Wektor<double, 3>* tab, Wektor<double, 3>& WSrodek, MacierzOb& MOrientacja, drawNS::APIGnuPlot3D* Obiekt);
+  int Narysuj(std::shared_ptr<drawNS::Draw3DAPI> api);
 };
 
 #endif

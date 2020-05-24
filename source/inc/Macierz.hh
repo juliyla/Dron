@@ -7,12 +7,13 @@
 
 template<typename Typ, int Rozmiar>
 class Macierz {
+ protected:
    Wektor<Typ, Rozmiar> tab[ROZMIAR];
   public:  
   Macierz<Typ, Rozmiar>();
   Macierz<Typ, Rozmiar>(const Wektor<Typ, Rozmiar> tab[]);
 
-  Typ wyznacznik() const;
+  Typ wyznacznik();
   Macierz<Typ, Rozmiar> zmien_kolumne(int kolum, Wektor<Typ, Rozmiar> wek);
   Macierz<Typ, Rozmiar> transponuj() const;
 

@@ -1,10 +1,14 @@
 #include <iostream>
+#include <fstream>
 #include "../inc/Dr3D_gnuplot_api.hh"
 #include "../inc/Wektor.hh"
 #include "../inc/MacierzOb.hh"
 #include "../inc/Macierz.hh"
 #include "../inc/Prostopadloscian.hh"
-#include "../inc/Dron.hh
+#include "../inc/Dron.hh"
+#include "../inc/Powierzchnia.hh"
+#include "../inc/ObiektRysowalny.hh"
+
 
 using std::vector;
 using drawNS::Point3D;
@@ -21,13 +25,40 @@ void wait4key() {
 
 
 int main() {
-  Dron dron(0,5,2);
   int wybor = 0;
   double kat;
   double odleglosc;
-  std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-100,100,-100,100,-100,100,1000));
-  api->change_ref_time_ms(0);
-  int a = dron.Narysuj(api);
+  Wektor<double, 3> tabD[8];
+  Wektor<double, 3> tabS[12];
+  Wektor<double, 3> WSrodek; 
+  MacierzOb MOrientacja;
+  std::shared_ptr<drawNS::Draw3DAPI> Obiekt(new APIGnuPlot3D(-100,100,-100,100,-100,100,100));
+  Obiekt->change_ref_time_ms(0);
+  ifstream plik;
+  string plikD, plikS;
+  cout << "Podaj plik z dronem" << endl;
+  cin >> plikD;
+  plik.open(plikD);
+  for (int i = 0; i < 8; i++)
+  {
+	  plik >> tabD[i];
+  };
+  plik.close();
+  cout << "Podaj plik z sruba" << endl;
+  cin >> plikS;
+  plik.open(plikS);
+  for (int i = 0; i < 12; i++)
+  {
+	  plik >> tabS[i];
+  };
+  plik.close();
+  Powierzchnia Tafla();
+  Tafla.InicjalizujPowierzchnie();
+  Powierzchnia Dno();
+  Dno.InicjalizujPowierzchnie();
+  Dron dron(tabD, tabS, WSrodek, MOrientacja, Obiekt);
+  int a = dron.Narysuj(Obiekt);
+
   
   while (wybor != 3){
     cout << "Menu wyboru: " << endl;
@@ -44,48 +75,49 @@ int main() {
 
 	if (kat >= 1) {
 	  kat = kat - 1;
-	  api->erase_shape(a);
+	  dron.Zmaz(a);
 	  dron.Obrot(1);
-	  a = dron.Narysuj(api);
+	  a = dron.Narysuj(Obiekt);
 	}
 	else if (kat <= -1){
-	  api->erase_shape(a); 
+		dron.Zmaz(a);
 	 dron.Obrot(-1);
 	  kat = kat + 1;
-	  a = dron.Narysuj(api);
+	  a = dron.Narysuj(Obiekt);
 	}
 	else {
-	  api->erase_shape(a);
-	  dron.Obrot_Z(1);
+		dron.Zmaz(a);
+	  dron.Obrot(1);
 	  kat = 0;
-	  a = dron.Narysuj(api);
+	  a = dron.Narysuj(Obiekt);
 	}
        
       break;
     }
       
     case 2: {
-      cout << "Podaj odleglosc: ";
+      cout << "Podaj odleglosc i kat: ";
       cin >> odleglosc;
+	  cin >> kat;
 
       while(odleglosc) {
 	if (odleglosc >= 1) {
-	  api->erase_shape(a); 
+		dron.Zmaz(a);
 	  odleglosc = odleglosc - 1;
-	  dron.Przesuniecie(1);
-	  a = dron.Narysuj(api);
+	  dron.Przesuniecie(1,kat);
+	  a = dron.Narysuj(Obiekt);
 	}
 	else if(odleglosc <= -1) {
-	  api->erase_shape(a); 
+		dron.Zmaz(a);
 	  odleglosc = odleglosc + 1;
-	  dron.Przesuniecie(-1);
-	  a = dron.Narysuj(api);
+	  dron.Przesuniecie(-1,kat);
+	  a = dron.Narysuj(Obiekt);
 	}
 	else {
-	  api->erase_shape(a); 
-	  dron.Przesuniecie(odleglosc);
+		dron.Zmaz(a);
+	  dron.Przesuniecie(odleglosc,kat);
 	  odleglosc = 0;
-	  a = dron.Narysuj(api);
+	  a = dron.Narysuj(Obiekt);
 	}  
       }
        

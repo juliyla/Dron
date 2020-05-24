@@ -12,6 +12,7 @@ class Wektor {
 public:
   Wektor<Typ, Rozmiar>();
   Wektor<Typ, Rozmiar>(Typ tab[]);
+  Wektor(Typ, Typ, Typ);
  
   Wektor<Typ, Rozmiar> operator + (const Wektor<Typ, Rozmiar> &W2) const;
   Wektor<Typ, Rozmiar> operator - (const Wektor<Typ, Rozmiar> &W2) const;

@@ -7,8 +7,10 @@
 class Bryla : public ObiektRysowalny { 
 protected:
   Wektor<double,3> WSrodek; 
+  MacierzOb MOrientacja;
 public:
- Bryla(): WSrodek(0,0,0);
+	Bryla(Wektor<double, 3>& WSrodek, MacierzOb& MOrientacja, drawNS::APIGnuPlot3D* Obiekt): ObiektRysowalny(Obiekt), WSrodek(WSrodek), MOrientacja(MOrientacja){}
+	~Bryla() {}
 };
 
 

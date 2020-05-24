@@ -1,12 +1,10 @@
-Sruba::Sruba(){
- double podstawa=0;
- double wysokosc=0;
+#include "../inc/Sruba.hh"
+
+
+void Sruba::ObrotSr(MacierzOb NowaMOrientacjaDr){
+	MOrientacja = NowaMOrientacjaDr * MOrientacjaSr * MacierzOb(katSr,'X');
 }
 
-void Sruba::ObrotS(double kat){
-    double i;
-    for(i=0;i<=kat;i+=0,1){
-        (*this).ObrotG(0,1);
-    }
-    (*this).ObrotG(0,1*(1-((i-kat)/0,1)));    
+void Sruba::PrzesuniecieSr(Wektor<double, 3> NowyWSrodekDr) {
+	WSrodek = NowyWSrodekDr + MOrientacja * WSrodekSr;
 }

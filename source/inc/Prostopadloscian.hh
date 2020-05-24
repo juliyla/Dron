@@ -5,18 +5,12 @@
 #include "Wektor.hh"
 #include "MacierzOb.hh"
 
-class Prostopadloscian : public Bryla 
-{
+class Prostopadloscian : public Bryla {
 protected:
-  Wektor<double, 3> WWymiary;
-std::vector < Wektor<double, 3>> WWspolrzedne;
-public: 
-Prostopadloscian(): WWymiary()
-    {
-        WWspolrzedne.reserve(8);
-        Wspolrzedne();
-    };
-void Wspolrzedne();
-int Narysuj(std::shared_ptr<drawNS::Draw3DAPI> & api) override;
+     Wektor<double, 3> WWierzcholki[8];
+public:
+    Prostopadloscian(Wektor<double, 3>* tab, Wektor<double, 3>& WSrodek, MacierzOb& MOrientacja, drawNS::APIGnuPlot3D* Obiekt) : Bryla(WSrodek, MOrientacja, Obiekt) {};
+    int Narysuj(std::shared_ptr<drawNS::Draw3DAPI> api);
+};
 
 #endif

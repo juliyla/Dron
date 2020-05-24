@@ -15,8 +15,8 @@ public:
     WWierzcholki.push_back(W);
     } 
     Rysuj();
-    api->change_shape_color(index,"yellow");
-    api->redraw();
+    Obiekt->change_shape_color(index,"yellow");
+    Obiekt->redraw();
 };
 };
 

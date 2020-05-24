@@ -8,7 +8,7 @@ protected:
 public:
     virtual void InicjalizujPowierzchnie()=0;
     void Rysuj() {
- index=api->draw_surface(WWierzcholki, "blue");
+ index=Obiekt->draw_surface(WWierzcholki, "blue");
 };
 
 };

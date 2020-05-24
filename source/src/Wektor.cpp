@@ -21,6 +21,13 @@ Wektor<Typ, Rozmiar>::Wektor(Typ tab[])
         this->tab[i] = tab[i];
     }
 }
+template<typename Typ, int Rozmiar>
+Wektor<Typ, Rozmiar>::Wektor(Typ x, Typ y, Typ z)
+{
+    tab[0] = x;
+    tab[1] = y;
+    tab[2] = z;
+}
 
 /*Operacje matematyczne*/
 
@@ -129,10 +136,6 @@ istream & operator >> (istream &strm, Wektor<Typ, Rozmiar> &W) {
   return strm;
 }
 
-template class Wektor<double, 5>;
-template istream& operator >> (istream &strm, Wektor<double, 5> &Wek);
-template ostream& operator << (ostream &strm, const Wektor<double, 5> &Wek);
-
-template class Wektor<LZespolona, 5>;
-template istream& operator >> (istream &strm, Wektor<LZespolona, 5> &Wek);
-template ostream& operator << (ostream &strm, const Wektor<LZespolona, 5> &Wek);
+template class Wektor<double, 3>;
+template istream& operator >> (istream &strm, Wektor<double, 3> &Wek);
+template ostream& operator << (ostream &strm, const Wektor<double, 3> &Wek);
