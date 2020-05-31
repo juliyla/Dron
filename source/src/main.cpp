@@ -8,6 +8,8 @@
 #include "../inc/Dron.hh"
 #include "../inc/Powierzchnia.hh"
 #include "../inc/ObiektRysowalny.hh"
+#include "../inc/Dno.hh"
+#include "../inc/Tafla.hh"
 
 
 using std::vector;
@@ -53,9 +55,9 @@ int main() {
   };
   plik.close();
   Powierzchnia Tafla();
-  Tafla.InicjalizujPowierzchnie();
+  Tafla::InicjalizujPowierzchnie(Tafla);
   Powierzchnia Dno();
-  Dno.InicjalizujPowierzchnie();
+  Dno::InicjalizujPowierzchnie(Dno);
   Dron dron(tabD, tabS, WSrodek, MOrientacja, Obiekt);
   int a = dron.Narysuj(Obiekt);
 

@@ -75,6 +75,14 @@ Wektor<Typ, Rozmiar> Wektor<Typ, Rozmiar>::operator / (double l2) const{
     Wynik[i] = tab[i] / l2;
   return Wynik;
 }
+template<typename Typ, int Rozmiar>
+double Wektor<Typ, Rozmiar>::dlugosc() const {
+    double l = 0;
+    for (int i = 0; i < ROZMIAR; i++)
+        l = l + (tab[i] * tab[i]);
+    l = sqrt(l);
+    return l;
+}
 
 
 /*Operatory porownania*/
