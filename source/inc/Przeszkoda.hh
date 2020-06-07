@@ -9,8 +9,7 @@
 
 
 class Przeszkoda : public InterfejsDrona {
-	std::vector<std::shared_ptr<Przeszkoda> > kolekcja_przeszkod;
-	std::vector<std::shared_ptr<Dron> > kolekcja_Dronow;
+	
 	public:
 	virtual bool czy_kolizja(std::shared_ptr<InterfejsDrona> D) = 0;
 };

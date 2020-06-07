@@ -10,6 +10,7 @@
 #include "../inc/ObiektRysowalny.hh"
 #include "../inc/Dno.hh"
 #include "../inc/Tafla.hh"
+#include "../inc/PrzeszkodaProst.hh"
 
 
 using std::vector;
@@ -27,6 +28,8 @@ void wait4key() {
 
 
 int main() {
+	std::vector<std::shared_ptr<Przeszkoda> > kolekcja_przeszkod;
+	std::vector<std::shared_ptr<Dron> > kolekcja_Dronow;
   int wybor = 0;
   double kat;
   double odleglosc;
@@ -34,6 +37,8 @@ int main() {
   Wektor<double, 3> tabS[12];
   Wektor<double, 3> WSrodek; 
   MacierzOb MOrientacja;
+  std::shared_ptr<Dron> dron;
+  int c;
   std::shared_ptr<drawNS::Draw3DAPI> Obiekt(new APIGnuPlot3D(-100,100,-100,100,-100,100,100));
   Obiekt->change_ref_time_ms(0);
   ifstream plik;
@@ -54,79 +59,136 @@ int main() {
 	  plik >> tabS[i];
   };
   plik.close();
-  Powierzchnia Tafla();
-  Tafla::InicjalizujPowierzchnie(Tafla);
-  Powierzchnia Dno();
-  Dno::InicjalizujPowierzchnie(Dno);
-  Dron dron(tabD, tabS, WSrodek, MOrientacja, Obiekt);
-  int a = dron.Narysuj(Obiekt);
 
+  shared_ptr<Tafla> tafla = make_shared<Tafla>();
+  tafla->InicjalizujPowierzchnie();
+  kolekcja_przeszkod.push_back(tafla);
+
+  shared_ptr<Dno> dno = make_shared<Dno>();
+  dno->InicjalizujPowierzchnie();
+  kolekcja_przeszkod.push_back(dno);
+
+  std::shared_ptr<PrzeszkodaProst> P1 = std::make_shared<PrzeszkodaProst>(20, 30, 40);
+  P1->Narysuj(Obiekt);
+  kolekcja_przeszkod.push_back(P1);
+
+  std::shared_ptr<Dron> D1 = std::make_shared<Dron>(tabD, tabS, WSrodek, MOrientacja, Obiekt);
+  D1->Przesuniecie(10, 90);
+  int a = D1->Narysuj(Obiekt);
+  kolekcja_Dronow.push_back(D1);
+  kolekcja_przeszkod.push_back(D1);
+
+  std::shared_ptr<Dron> D2 = std::make_shared<Dron>(tabD, tabS, WSrodek, MOrientacja, Obiekt);
+  D2->Przesuniecie(0, 0);
+  int b = D2->Narysuj(Obiekt);
+  kolekcja_Dronow.push_back(D2);
+  kolekcja_przeszkod.push_back(D2);
   
-  while (wybor != 3){
+  while (wybor != 5){
     cout << "Menu wyboru: " << endl;
-    cout << "Obrot drona o kat   - 1" << endl;
-    cout << "Przesuniecie drona  - 2" << endl;
-    cout << "Zakonczenie programu -3" << endl;
+	cout << "Wybierz drona a lub b - 1" << endl;
+    cout << "Przesuniecie drona    - 2" << endl;
+	cout << "Obrot drona o kat     - 3" << endl;
+	cout << "Statystyki            - 4" << endl;
+    cout << "Zakonczenie programu  - 5" << endl;
     cout << "Twoj wybor: " << endl;
     cin >> wybor;
   
     switch(wybor) {
-    case 1: {
-      cout << "Podaj kat obrotu: ";
-      cin >> kat;
+	case 1: {
+		kolekcja_przeszkod.pop_back();
+		kolekcja_przeszkod.pop_back();
+		char dr;
+		cin >> dr;
+		if (dr == 'a') {
+			dron = D1;
+			c = a;
+			kolekcja_przeszkod.push_back(kolekcja_Dronow[1]);
+			break;
+		}
+		if (dr == 'b') {
+			dron = D2;
+			c = b;
+			kolekcja_przeszkod.push_back(kolekcja_Dronow[0]);
+			break;
+		}
+		break;
+	}
 
-	if (kat >= 1) {
-	  kat = kat - 1;
-	  dron.Zmaz(a);
-	  dron.Obrot(1);
-	  a = dron.Narysuj(Obiekt);
-	}
-	else if (kat <= -1){
-		dron.Zmaz(a);
-	 dron.Obrot(-1);
-	  kat = kat + 1;
-	  a = dron.Narysuj(Obiekt);
-	}
-	else {
-		dron.Zmaz(a);
-	  dron.Obrot(1);
-	  kat = 0;
-	  a = dron.Narysuj(Obiekt);
-	}
-       
-      break;
-    }
-      
-    case 2: {
-      cout << "Podaj odleglosc i kat: ";
-      cin >> odleglosc;
-	  cin >> kat;
+	case 2: {
+		cout << "Podaj odleglosc i kat: ";
+		cin >> odleglosc;
+		cin >> kat;
+		bool kolizja = false;
+		for (int i = 0; i <= odleglosc; i++) {
+			for (auto elem : kolekcja_przeszkod) {
+				kolizja = elem->czy_kolizja(dron);
+				if (kolizja == true) {
 
-      while(odleglosc) {
-	if (odleglosc >= 1) {
-		dron.Zmaz(a);
-	  odleglosc = odleglosc - 1;
-	  dron.Przesuniecie(1,kat);
-	  a = dron.Narysuj(Obiekt);
+					break;
+				}
+
+
+				else {
+					if (odleglosc >= 1) {
+						dron->Zmaz(c);
+						odleglosc = odleglosc - 1;
+						dron->Przesuniecie(1, kat);
+						c = dron->Narysuj(Obiekt);
+					}
+					else if (odleglosc <= -1) {
+						dron->Zmaz(c);
+						odleglosc = odleglosc + 1;
+						dron->Przesuniecie(-1, kat);
+						c = dron->Narysuj(Obiekt);
+					}
+					else {
+						dron->Zmaz(c);
+						dron->Przesuniecie(odleglosc, kat);
+						odleglosc = 0;
+						c = dron->Narysuj(Obiekt);
+					}
+				}
+
+				break;
+			}
+	case 3: {
+		cout << "Podaj kat obrotu: ";
+		cin >> kat;
+
+		if (kat >= 1) {
+			kat = kat - 1;
+			dron->Zmaz(c);
+			dron->Obrot(1);
+			c = dron->Narysuj(Obiekt);
+		}
+		else if (kat <= -1) {
+			dron->Zmaz(c);
+			dron->Obrot(-1);
+			kat = kat + 1;
+			c = dron->Narysuj(Obiekt);
+		}
+		else {
+			dron->Zmaz(c);
+			dron->Obrot(1);
+			kat = 0;
+			c = dron->Narysuj(Obiekt);
+		}
+
+		break;
 	}
-	else if(odleglosc <= -1) {
-		dron.Zmaz(a);
-	  odleglosc = odleglosc + 1;
-	  dron.Przesuniecie(-1,kat);
-	  a = dron.Narysuj(Obiekt);
+		}}
+
+	case 4: {
+		cout << "Wektory:" << endl;
+		cout << "Istniejace:" << Wektor<double, 3>::zwroc_istniejace() << endl;
+		cout << "Wszystkie:" << Wektor<double, 3>::zwroc_wszystkie() << endl;
+		cout << "Bryly:" << endl;
+		cout << "Istniejace:" << Bryla::zwroc_istniejace() << endl;
+		cout << "Wszystkie:" << Bryla::zwroc_wszystkie() << endl;
+		break;
 	}
-	else {
-		dron.Zmaz(a);
-	  dron.Przesuniecie(odleglosc,kat);
-	  odleglosc = 0;
-	  a = dron.Narysuj(Obiekt);
-	}  
-      }
-       
-      break;
-    }
-      
-    case 3: {
+    case 5: {
       cout << "Koniec dzialania programu" << endl;
       break;
     }}}  

@@ -23,11 +23,8 @@ public:
    bool czy_kolizja(std::shared_ptr<InterfejsDrona> D) override {
        for (vector<drawNS::Point3D>& W : WWierzcholki){
            for (drawNS::Point3D& j : W){
-               if (std::abs(j[2] - D->ZwrocSrodek()[2]) < D->ZwrocPromien() &&
-                   (D->ZwrocSrodek()[0]<j[0] + D->ZwrocPromien() &&
-                       D->ZwrocSrodek()[0]>j[0] - D->ZwrocPromien()) &&
-                   (D->ZwrocSrodek()[1]<j[1] + D->ZwrocPromien() &&
-                       D->ZwrocSrodek()[1]>j[1] - D->ZwrocPromien()))
+               if (( D->ZwrocSrodek()[2] - D->ZwrocPromien() ) < std::abs(j[2]) )
+                   
                {
                    std::cout << "Kolizja!" << std::endl;
 

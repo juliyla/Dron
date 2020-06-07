@@ -12,6 +12,7 @@ Wektor<Typ, Rozmiar>::Wektor()
 {
   for (int i=0; i<ROZMIAR; i++){
   this->tab[i] = 0;}
+  istniejace++;
 }
 template<typename Typ, int Rozmiar>
 Wektor<Typ, Rozmiar>::Wektor(Typ tab[])
@@ -20,6 +21,7 @@ Wektor<Typ, Rozmiar>::Wektor(Typ tab[])
     {
         this->tab[i] = tab[i];
     }
+    istniejace++;
 }
 template<typename Typ, int Rozmiar>
 Wektor<Typ, Rozmiar>::Wektor(Typ x, Typ y, Typ z)
@@ -27,6 +29,7 @@ Wektor<Typ, Rozmiar>::Wektor(Typ x, Typ y, Typ z)
     tab[0] = x;
     tab[1] = y;
     tab[2] = z;
+    istniejace++;
 }
 
 /*Operacje matematyczne*/
